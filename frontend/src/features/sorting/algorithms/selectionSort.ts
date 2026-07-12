@@ -4,24 +4,32 @@ export function selectionSort(array: ArrayBar[]): SortStep[] {
   const arr = array.map((bar) => ({ ...bar }));
   const steps: SortStep[] = [];
 
-  const save = () => {
+  let comparisons = 0;
+  let swaps = 0;
+
+  function saveStep() {
     steps.push({
       array: arr.map((bar) => ({ ...bar })),
+      comparisons,
+      swaps,
     });
-  };
+  }
 
   for (let i = 0; i < arr.length; i++) {
     let min = i;
 
     for (let j = i + 1; j < arr.length; j++) {
-      arr.forEach((b) => {
-        if (b.state !== "sorted") b.state = "default";
+      arr.forEach((bar) => {
+        if (bar.state !== "sorted") {
+          bar.state = "default";
+        }
       });
 
       arr[min].state = "comparing";
       arr[j].state = "comparing";
 
-      save();
+      comparisons++;
+      saveStep();
 
       if (arr[j].value < arr[min].value) {
         min = j;
@@ -32,16 +40,16 @@ export function selectionSort(array: ArrayBar[]): SortStep[] {
       arr[i].state = "swapping";
       arr[min].state = "swapping";
 
-      save();
+      saveStep();
 
       [arr[i], arr[min]] = [arr[min], arr[i]];
 
-      save();
+      swaps++;
+      saveStep();
     }
 
     arr[i].state = "sorted";
-
-    save();
+    saveStep();
   }
 
   return steps;

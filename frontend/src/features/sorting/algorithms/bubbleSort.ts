@@ -4,42 +4,44 @@ export function bubbleSort(array: ArrayBar[]): SortStep[] {
   const arr = array.map((bar) => ({ ...bar }));
   const steps: SortStep[] = [];
 
+  let comparisons = 0;
+  let swaps = 0;
+
   function saveStep() {
     steps.push({
       array: arr.map((bar) => ({ ...bar })),
+      comparisons,
+      swaps,
     });
   }
 
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {
-      // Reset all non-sorted bars
       arr.forEach((bar) => {
         if (bar.state !== "sorted") {
           bar.state = "default";
         }
       });
 
-      // Highlight bars being compared
       arr[j].state = "comparing";
       arr[j + 1].state = "comparing";
 
+      comparisons++;
       saveStep();
 
       if (arr[j].value > arr[j + 1].value) {
-        // Highlight swap
         arr[j].state = "swapping";
         arr[j + 1].state = "swapping";
 
         saveStep();
 
-        // Swap bars
         [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
 
+        swaps++;
         saveStep();
       }
     }
 
-    // Mark last sorted element
     arr[arr.length - i - 1].state = "sorted";
     saveStep();
   }

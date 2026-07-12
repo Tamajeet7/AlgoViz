@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 
 import type { ArrayBar, SortStep } from "../types/sorting";
-
 import { generateArray } from "../utils/generateArray";
 
 export function useSorting() {
   const [array, setArray] = useState<ArrayBar[]>([]);
-  const [arraySize, setArraySize] = useState(40);
 
+  const [arraySize, setArraySize] = useState(40);
   const [speed, setSpeed] = useState(50);
 
   const [isSorting, setIsSorting] = useState(false);
+
+  const [comparisons, setComparisons] = useState(0);
+  const [swaps, setSwaps] = useState(0);
 
   const timeoutRef = useRef<number | null>(null);
 
@@ -22,6 +24,8 @@ export function useSorting() {
     if (isSorting) return;
 
     setArray(generateArray(arraySize));
+    setComparisons(0);
+    setSwaps(0);
   }
 
   function play(steps: SortStep[]) {
@@ -38,6 +42,8 @@ export function useSorting() {
       }
 
       setArray(steps[i].array);
+      setComparisons(steps[i].comparisons);
+      setSwaps(steps[i].swaps);
 
       i++;
 
@@ -58,6 +64,8 @@ export function useSorting() {
     setIsSorting(false);
 
     setArray(generateArray(arraySize));
+    setComparisons(0);
+    setSwaps(0);
   }
 
   return {
@@ -70,6 +78,9 @@ export function useSorting() {
     setSpeed,
 
     isSorting,
+
+    comparisons,
+    swaps,
 
     generateNewArray,
 

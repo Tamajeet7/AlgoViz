@@ -25,6 +25,9 @@ export default function SortingVisualizer() {
 
     isSorting,
 
+    comparisons,
+    swaps,
+
     generateNewArray,
 
     play,
@@ -57,8 +60,6 @@ export default function SortingVisualizer() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">
           Sorting Visualizer
@@ -74,18 +75,14 @@ export default function SortingVisualizer() {
           <option value="bubble">Bubble Sort</option>
           <option value="selection">Selection Sort</option>
           <option value="insertion">Insertion Sort</option>
-
           <option value="merge" disabled>
             Merge Sort (Coming Soon)
           </option>
-
           <option value="quick" disabled>
             Quick Sort (Coming Soon)
           </option>
         </select>
       </div>
-
-      {/* Toolbar */}
 
       <div className="rounded-2xl border border-border bg-surface">
         <Toolbar
@@ -100,15 +97,25 @@ export default function SortingVisualizer() {
         />
       </div>
 
-      {/* Visualization */}
-
       <div className="rounded-2xl border border-border bg-surface p-6">
         <ArrayBars array={array} />
       </div>
 
-      {/* Information */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        {/* Live Statistics */}
+        <div className="rounded-2xl border border-border bg-surface p-6">
+          <h2 className="mb-4 text-xl font-semibold">
+            Live Statistics
+          </h2>
 
-      <div className="grid gap-6 md:grid-cols-2">
+          <div className="space-y-2 text-text-secondary">
+            <p>Comparisons: {comparisons}</p>
+            <p>Swaps: {swaps}</p>
+            <p>Status: {isSorting ? "Sorting..." : "Idle"}</p>
+          </div>
+        </div>
+
+        {/* Complexity */}
         <div className="rounded-2xl border border-border bg-surface p-6">
           <h2 className="mb-4 text-xl font-semibold">
             {info.title}
@@ -122,6 +129,7 @@ export default function SortingVisualizer() {
           </div>
         </div>
 
+        {/* Explanation */}
         <div className="rounded-2xl border border-border bg-surface p-6">
           <h2 className="mb-4 text-xl font-semibold">
             Explanation

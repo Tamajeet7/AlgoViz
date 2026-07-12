@@ -12,6 +12,10 @@ export interface ArrayBar {
 
 export interface SortStep {
   array: ArrayBar[];
+
+  comparisons: number;
+
+  swaps: number;
 }
 
 export type SortingAlgorithm =

@@ -4,35 +4,57 @@ export function insertionSort(array: ArrayBar[]): SortStep[] {
   const arr = array.map((bar) => ({ ...bar }));
   const steps: SortStep[] = [];
 
-  const save = () =>
+  let comparisons = 0;
+  let swaps = 0;
+
+  function saveStep() {
     steps.push({
       array: arr.map((bar) => ({ ...bar })),
+      comparisons,
+      swaps,
     });
+  }
 
   for (let i = 1; i < arr.length; i++) {
     let j = i;
 
-    while (j > 0 && arr[j - 1].value > arr[j].value) {
-      arr.forEach((b) => {
-        if (b.state !== "sorted") b.state = "default";
+    while (j > 0) {
+      comparisons++;
+
+      arr.forEach((bar) => {
+        if (bar.state !== "sorted") {
+          bar.state = "default";
+        }
       });
+
+      arr[j - 1].state = "comparing";
+      arr[j].state = "comparing";
+
+      saveStep();
+
+      if (arr[j - 1].value <= arr[j].value) {
+        break;
+      }
 
       arr[j - 1].state = "swapping";
       arr[j].state = "swapping";
 
-      save();
+      saveStep();
 
       [arr[j - 1], arr[j]] = [arr[j], arr[j - 1]];
 
-      save();
+      swaps++;
+      saveStep();
 
       j--;
     }
   }
 
-  arr.forEach((b) => (b.state = "sorted"));
+  arr.forEach((bar) => {
+    bar.state = "sorted";
+  });
 
-  save();
+  saveStep();
 
   return steps;
 }
