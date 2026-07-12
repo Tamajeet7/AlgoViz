@@ -1,7 +1,9 @@
+import SortingVisualizer from "../features/sorting/components/SortingVisualizer";
+
 export default function Sorting() {
   return (
-    <div className="p-10">
-      <h1 className="text-4xl font-bold">Sorting Visualizer</h1>
+    <div className="mx-auto max-w-7xl p-8">
+      <SortingVisualizer />
     </div>
   );
 }
