@@ -8,9 +8,19 @@ export function useSorting() {
   const [array, setArray] = useState<ArrayBar[]>([]);
   const [arraySize, setArraySize] = useState(40);
 
+  const [speed, setSpeed] = useState(50);
+
+  const [isSorting, setIsSorting] = useState(false);
+
   useEffect(() => {
     setArray(generateArray(arraySize));
   }, [arraySize]);
+
+  function generateNewArray() {
+    if (isSorting) return;
+
+    setArray(generateArray(arraySize));
+  }
 
   return {
     array,
@@ -19,6 +29,12 @@ export function useSorting() {
     arraySize,
     setArraySize,
 
-    generateNewArray: () => setArray(generateArray(arraySize)),
+    speed,
+    setSpeed,
+
+    isSorting,
+    setIsSorting,
+
+    generateNewArray,
   };
 }

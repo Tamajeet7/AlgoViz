@@ -1,45 +1,24 @@
-import Button from "../components/common/Button";
-import FeatureCard from "../components/common/FeatureCard";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-20">
-      {/* Hero */}
-      <section className="py-24 text-center">
-        <h1 className="mb-6 text-7xl font-extrabold">
-          Learn Algorithms
-          <span className="text-primary"> Visually</span>
-        </h1>
+    <div className="mx-auto flex min-h-[80vh] max-w-7xl flex-col items-center justify-center px-6 text-center">
+      <h1 className="mb-6 text-6xl font-bold">
+        Learn Algorithms
+        <span className="text-primary"> Visually</span>
+      </h1>
 
-        <p className="mx-auto mb-10 max-w-2xl text-lg text-text-secondary">
-          Interactive visualizations for sorting, searching, graph traversal,
-          and pathfinding algorithms. Learn by watching every step.
-        </p>
+      <p className="mb-10 max-w-2xl text-lg text-text-secondary">
+        Interactive visualizations for sorting, searching, graph traversal,
+        and pathfinding algorithms.
+      </p>
 
-        <div className="flex justify-center gap-6">
-          <Button>Start Learning</Button>
-
-          <Button>GitHub</Button>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="grid gap-8 md:grid-cols-3">
-        <FeatureCard
-          title="Sorting"
-          description="Visualize Bubble, Merge, Quick, Heap and many more."
-        />
-
-        <FeatureCard
-          title="Searching"
-          description="Watch Binary Search and Linear Search step-by-step."
-        />
-
-        <FeatureCard
-          title="Graphs"
-          description="Explore BFS, DFS, Dijkstra and pathfinding algorithms."
-        />
-      </section>
+      <Link
+        to="/sorting"
+        className="rounded-lg bg-primary px-6 py-3 font-semibold text-white transition hover:opacity-90"
+      >
+        Start Exploring
+      </Link>
     </div>
   );
 }
