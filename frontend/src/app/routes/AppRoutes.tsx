@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 
 import Home from "../../pages/Home";
-import Sorting from "../../pages/Sorting";
+import Sorting from "../../features/sorting/pages/Sorting";
 import Searching from "../../pages/Searching";
 import Graph from "../../pages/Graph";
 import About from "../../pages/About";

@@ -1,4 +1,4 @@
-import SortingVisualizer from "../features/sorting/components/SortingVisualizer";
+import SortingVisualizer from "../components/SortingVisualizer";
 
 export default function Sorting() {
   return (

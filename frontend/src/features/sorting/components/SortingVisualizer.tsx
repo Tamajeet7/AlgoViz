@@ -1,9 +1,16 @@
+import ArrayBars from "./ArrayBars";
+import { useSorting } from "../hooks/useSorting";
+
 export default function SortingVisualizer() {
+  const { array } = useSorting();
+
   return (
-    <div className="rounded-2xl border border-border bg-surface p-8">
-      <h2 className="text-2xl font-bold">
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">
         Sorting Visualizer
-      </h2>
+      </h1>
+
+      <ArrayBars array={array} />
     </div>
   );
 }
