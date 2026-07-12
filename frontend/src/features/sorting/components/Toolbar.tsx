@@ -1,8 +1,11 @@
 type Props = {
   arraySize: number;
   speed: number;
+  isSorting: boolean;
 
   onGenerate: () => void;
+  onPlay: () => void;
+  onReset: () => void;
 
   onArraySizeChange: (value: number) => void;
   onSpeedChange: (value: number) => void;
@@ -11,7 +14,10 @@ type Props = {
 export default function Toolbar({
   arraySize,
   speed,
+  isSorting,
   onGenerate,
+  onPlay,
+  onReset,
   onArraySizeChange,
   onSpeedChange,
 }: Props) {
@@ -20,26 +26,33 @@ export default function Toolbar({
 
       <button
         onClick={onGenerate}
-        className="rounded-lg bg-primary px-4 py-2 font-medium"
+        disabled={isSorting}
+        className="rounded-lg bg-primary px-4 py-2 text-white disabled:opacity-50"
       >
         🎲 Generate
       </button>
 
-      <button className="rounded-lg border border-border px-4 py-2">
-        ▶ Start
+      <button
+        onClick={onPlay}
+        disabled={isSorting}
+        className="rounded-lg border border-border px-4 py-2 disabled:opacity-50"
+      >
+        ▶ Play
       </button>
 
-      <button className="rounded-lg border border-border px-4 py-2">
+      <button
+        onClick={onReset}
+        className="rounded-lg border border-border px-4 py-2"
+      >
         🔄 Reset
       </button>
 
       <div className="ml-auto flex items-center gap-6">
 
-        <div className="flex items-center gap-2">
-
-          <span className="text-sm">
-            Size
-          </span>
+        <div>
+          <p className="text-sm">
+            Size {arraySize}
+          </p>
 
           <input
             type="range"
@@ -50,14 +63,12 @@ export default function Toolbar({
               onArraySizeChange(Number(e.target.value))
             }
           />
-
         </div>
 
-        <div className="flex items-center gap-2">
-
-          <span className="text-sm">
-            Speed
-          </span>
+        <div>
+          <p className="text-sm">
+            Speed {speed}
+          </p>
 
           <input
             type="range"
@@ -68,7 +79,6 @@ export default function Toolbar({
               onSpeedChange(Number(e.target.value))
             }
           />
-
         </div>
 
       </div>

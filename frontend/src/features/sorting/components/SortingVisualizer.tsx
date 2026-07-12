@@ -1,5 +1,7 @@
-import Toolbar from "./Toolbar";
+import { bubbleSort } from "../algorithms/bubbleSort";
+
 import ArrayBars from "./ArrayBars";
+import Toolbar from "./Toolbar";
 
 import { useSorting } from "../hooks/useSorting";
 
@@ -13,8 +15,19 @@ export default function SortingVisualizer() {
     speed,
     setSpeed,
 
+    isSorting,
+
     generateNewArray,
+
+    play,
+    reset,
   } = useSorting();
+
+  function handlePlay() {
+    const steps = bubbleSort(array);
+
+    play(steps);
+  }
 
   return (
     <div className="rounded-2xl border border-border bg-surface">
@@ -28,10 +41,6 @@ export default function SortingVisualizer() {
         <select className="rounded-lg border border-border bg-background px-3 py-2">
 
           <option>Bubble Sort</option>
-          <option>Selection Sort</option>
-          <option>Insertion Sort</option>
-          <option>Merge Sort</option>
-          <option>Quick Sort</option>
 
         </select>
 
@@ -40,7 +49,10 @@ export default function SortingVisualizer() {
       <Toolbar
         arraySize={arraySize}
         speed={speed}
+        isSorting={isSorting}
         onGenerate={generateNewArray}
+        onPlay={handlePlay}
+        onReset={reset}
         onArraySizeChange={setArraySize}
         onSpeedChange={setSpeed}
       />
@@ -48,16 +60,6 @@ export default function SortingVisualizer() {
       <div className="p-6">
 
         <ArrayBars array={array} />
-
-      </div>
-
-      <div className="flex justify-center gap-10 border-t border-border p-4 text-sm text-text-secondary">
-
-        <span>Comparisons 0</span>
-
-        <span>Swaps 0</span>
-
-        <span>Time 0 ms</span>
 
       </div>
 
