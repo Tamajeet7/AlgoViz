@@ -4,7 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 
 import Home from "../../pages/Home";
 import Sorting from "../../features/sorting/pages/Sorting";
-import Searching from "../../pages/Searching";
+import Searching from "../../features/searching/pages/Searching";
 import Graph from "../../pages/Graph";
 import About from "../../pages/About";
 import NotFound from "../../pages/NotFound";
