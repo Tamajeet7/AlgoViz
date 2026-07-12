@@ -17,4 +17,6 @@ export interface SortStep {
 export type SortingAlgorithm =
   | "bubble"
   | "selection"
-  | "insertion";
+  | "insertion"
+  | "merge"
+  | "quick";
