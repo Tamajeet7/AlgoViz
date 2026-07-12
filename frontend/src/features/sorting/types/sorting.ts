@@ -1,12 +1,17 @@
+export type BarState =
+  | "default"
+  | "comparing"
+  | "swapping"
+  | "sorted";
+
 export interface ArrayBar {
   id: number;
   value: number;
+  state: BarState;
 }
 
 export interface SortStep {
   array: ArrayBar[];
-  comparing: number[];
-  swapped: number[];
 }
 
 export type SortingAlgorithm =
