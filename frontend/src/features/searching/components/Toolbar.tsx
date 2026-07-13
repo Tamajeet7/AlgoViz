@@ -2,6 +2,9 @@ type Props = {
   target: number;
   arraySize: number;
   speed: number;
+  isSearching: boolean;
+
+  error: string;
 
   onTargetChange: (value: number) => void;
   onArraySizeChange: (value: number) => void;
@@ -16,6 +19,8 @@ export default function Toolbar({
   target,
   arraySize,
   speed,
+  isSearching,
+  error,
   onTargetChange,
   onArraySizeChange,
   onSpeedChange,
@@ -28,28 +33,33 @@ export default function Toolbar({
       <div className="flex flex-wrap gap-3">
         <button
           onClick={onGenerate}
-          className="rounded-xl bg-primary px-5 py-2 font-medium text-white transition hover:opacity-90"
+          disabled={isSearching}
+          className="rounded-xl bg-primary px-5 py-2 font-medium text-white disabled:opacity-50"
         >
           🎲 Generate
         </button>
 
         <button
           onClick={onSearch}
-          className="rounded-xl border border-border px-5 py-2 transition hover:bg-white/5"
+          disabled={isSearching}
+          className="rounded-xl border border-border px-5 py-2 disabled:opacity-50"
         >
-          🔍 Search
+          {isSearching ? "Searching..." : "🔍 Search"}
         </button>
 
         <button
           onClick={onReset}
-          className="rounded-xl border border-border px-5 py-2 transition hover:bg-white/5"
+          disabled={isSearching}
+          className="rounded-xl border border-border px-5 py-2 disabled:opacity-50"
         >
           🔄 Reset
         </button>
       </div>
 
       <div>
-        <label className="mb-2 block">Target Value</label>
+        <label className="mb-2 block font-medium">
+          Target Value
+        </label>
 
         <input
           type="number"
@@ -59,8 +69,14 @@ export default function Toolbar({
           onChange={(e) =>
             onTargetChange(Number(e.target.value))
           }
-          className="w-full rounded-lg border border-border bg-background px-3 py-2 outline-none"
+          className="w-full rounded-xl border border-border bg-background px-4 py-2"
         />
+
+        {error && (
+          <p className="mt-2 text-sm text-red-400">
+            {error}
+          </p>
+        )}
       </div>
 
       <div>

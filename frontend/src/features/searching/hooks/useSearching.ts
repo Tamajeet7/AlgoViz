@@ -25,21 +25,13 @@ export function useSearching() {
   const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
-    setArray(generateArray(arraySize));
-
-    setComparisons(0);
-
-    setSearchResult("idle");
-
-    setFoundIndex(null);
-
-    setIsSearching(false);
+    generateNewArray(false);
   }, [arraySize]);
 
-  function generateNewArray() {
+  function generateNewArray(sorted = false) {
     if (isSearching) return;
 
-    setArray(generateArray(arraySize));
+    setArray(generateArray(arraySize, sorted));
 
     setComparisons(0);
 
@@ -56,6 +48,7 @@ export function useSearching() {
     setIsSearching(true);
 
     setSearchResult("idle");
+
     setFoundIndex(null);
 
     let index = 0;
@@ -79,13 +72,14 @@ export function useSearching() {
       const step = steps[index];
 
       setArray(step.array);
+
       setComparisons(step.comparisons);
 
       index++;
 
       timeoutRef.current = window.setTimeout(
         animate,
-        101 - speed
+        Math.max(10, 110 - speed)
       );
     }
 
@@ -97,7 +91,7 @@ export function useSearching() {
       clearTimeout(timeoutRef.current);
     }
 
-    setArray(generateArray(arraySize));
+    setIsSearching(false);
 
     setComparisons(0);
 
@@ -105,11 +99,13 @@ export function useSearching() {
 
     setFoundIndex(null);
 
-    setIsSearching(false);
+    setArray(generateArray(arraySize));
   }
 
   return {
     array,
+
+    setArray,
 
     arraySize,
     setArraySize,

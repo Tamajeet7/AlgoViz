@@ -4,9 +4,7 @@ export function binarySearch(
   array: SearchBar[],
   target: number
 ): SearchStep[] {
-  const arr = array
-    .map((bar) => ({ ...bar }))
-    .sort((a, b) => a.value - b.value);
+  const arr = array.map((bar) => ({ ...bar }));
 
   const steps: SearchStep[] = [];
 
