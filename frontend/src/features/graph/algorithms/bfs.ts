@@ -1,35 +1,37 @@
-import type { GraphEdge, GraphStep } from "../types/graph";
+import type {
+  GraphEdge,
+  GraphStep,
+} from "../types/graph";
 
 export function bfs(edges: GraphEdge[]): GraphStep[] {
   const graph: Record<string, string[]> = {};
 
   edges.forEach((edge) => {
-    graph[edge.from] ??= [];
-    graph[edge.to] ??= [];
+    if (!graph[edge.from]) graph[edge.from] = [];
+    if (!graph[edge.to]) graph[edge.to] = [];
 
     graph[edge.from].push(edge.to);
     graph[edge.to].push(edge.from);
   });
 
   const queue = ["A"];
-
   const visited = new Set<string>();
 
   const steps: GraphStep[] = [];
 
   while (queue.length) {
-    const node = queue.shift()!;
+    const current = queue.shift()!;
 
-    if (visited.has(node)) continue;
+    if (visited.has(current)) continue;
 
-    visited.add(node);
+    visited.add(current);
 
     steps.push({
-      current: node,
+      current,
       visited: [...visited],
     });
 
-    graph[node].forEach((next) => {
+    graph[current].forEach((next) => {
       if (!visited.has(next)) {
         queue.push(next);
       }

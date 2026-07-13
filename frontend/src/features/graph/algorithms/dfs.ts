@@ -1,11 +1,14 @@
-import type { GraphEdge, GraphStep } from "../types/graph";
+import type {
+  GraphEdge,
+  GraphStep,
+} from "../types/graph";
 
 export function dfs(edges: GraphEdge[]): GraphStep[] {
   const graph: Record<string, string[]> = {};
 
   edges.forEach((edge) => {
-    graph[edge.from] ??= [];
-    graph[edge.to] ??= [];
+    if (!graph[edge.from]) graph[edge.from] = [];
+    if (!graph[edge.to]) graph[edge.to] = [];
 
     graph[edge.from].push(edge.to);
     graph[edge.to].push(edge.from);
@@ -18,18 +21,18 @@ export function dfs(edges: GraphEdge[]): GraphStep[] {
   const steps: GraphStep[] = [];
 
   while (stack.length) {
-    const node = stack.pop()!;
+    const current = stack.pop()!;
 
-    if (visited.has(node)) continue;
+    if (visited.has(current)) continue;
 
-    visited.add(node);
+    visited.add(current);
 
     steps.push({
-      current: node,
+      current,
       visited: [...visited],
     });
 
-    [...graph[node]].reverse().forEach((next) => {
+    [...graph[current]].reverse().forEach((next) => {
       if (!visited.has(next)) {
         stack.push(next);
       }

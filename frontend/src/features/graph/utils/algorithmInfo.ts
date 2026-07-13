@@ -12,27 +12,19 @@ export const algorithmInfo: Record<
 > = {
   bfs: {
     title: "Breadth First Search",
-
-    best: "O(V+E)",
-
-    average: "O(V+E)",
-
-    worst: "O(V+E)",
-
+    best: "O(V + E)",
+    average: "O(V + E)",
+    worst: "O(V + E)",
     explanation:
-      "Breadth First Search explores the graph level by level using a queue.",
+      "Breadth First Search explores the graph level by level using a queue. It always visits all neighbours before moving deeper."
   },
 
   dfs: {
     title: "Depth First Search",
-
-    best: "O(V+E)",
-
-    average: "O(V+E)",
-
-    worst: "O(V+E)",
-
+    best: "O(V + E)",
+    average: "O(V + E)",
+    worst: "O(V + E)",
     explanation:
-      "Depth First Search explores as deep as possible before backtracking using a stack or recursion.",
-  },
+      "Depth First Search explores one path completely before backtracking. It is commonly implemented using recursion or a stack."
+  }
 };

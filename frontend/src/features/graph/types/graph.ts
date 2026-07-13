@@ -11,10 +11,8 @@ export interface GraphEdge {
 }
 
 export interface GraphStep {
-  visited: string[];
   current: string;
+  visited: string[];
 }
 
-export type GraphAlgorithm =
-  | "bfs"
-  | "dfs";
+export type GraphAlgorithm = "bfs" | "dfs";
