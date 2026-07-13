@@ -1,33 +1,76 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+
         <Link
           to="/"
-          className="text-2xl font-bold text-primary transition hover:opacity-80"
+          className="text-3xl font-extrabold text-primary"
         >
           AlgoViz
         </Link>
 
-        <div className="flex gap-8 text-sm font-medium">
-          <Link to="/sorting" className="hover:text-primary transition">
+        <div className="flex items-center gap-8 text-sm font-semibold">
+
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive
+                ? "text-primary"
+                : "hover:text-primary transition"
+            }
+          >
+            Home
+          </NavLink>
+
+          <NavLink
+            to="/sorting"
+            className={({ isActive }) =>
+              isActive
+                ? "text-primary"
+                : "hover:text-primary transition"
+            }
+          >
             Sorting
-          </Link>
+          </NavLink>
 
-          <Link to="/searching" className="hover:text-primary transition">
+          <NavLink
+            to="/searching"
+            className={({ isActive }) =>
+              isActive
+                ? "text-primary"
+                : "hover:text-primary transition"
+            }
+          >
             Searching
-          </Link>
+          </NavLink>
 
-          <Link to="/graph" className="hover:text-primary transition">
+          <NavLink
+            to="/graph"
+            className={({ isActive }) =>
+              isActive
+                ? "text-primary"
+                : "hover:text-primary transition"
+            }
+          >
             Graph
-          </Link>
+          </NavLink>
 
-          <Link to="/about" className="hover:text-primary transition">
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive
+                ? "text-primary"
+                : "hover:text-primary transition"
+            }
+          >
             About
-          </Link>
+          </NavLink>
+
         </div>
+
       </div>
     </nav>
   );
