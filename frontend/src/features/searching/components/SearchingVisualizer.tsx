@@ -3,6 +3,9 @@ import { useState } from "react";
 import type { SearchingAlgorithm } from "../types/searching";
 
 import { algorithmInfo } from "../utils/algorithmInfo";
+
+import { linearSearch } from "../algorithms/linearSearch";
+
 import { useSearching } from "../hooks/useSearching";
 
 import Toolbar from "./Toolbar";
@@ -21,7 +24,19 @@ export default function SearchingVisualizer() {
     speed,
     setSpeed,
 
+    comparisons,
+
+    isSearching,
+
+    searchResult,
+
+    foundIndex,
+
     generateNewArray,
+
+    play,
+
+    reset,
   } = useSearching();
 
   const [algorithm, setAlgorithm] =
@@ -30,11 +45,7 @@ export default function SearchingVisualizer() {
   const info = algorithmInfo[algorithm];
 
   function handleSearch() {
-    console.log("Searching for:", target);
-  }
-
-  function handleReset() {
-    generateNewArray();
+    play(linearSearch(array, target));
   }
 
   return (
@@ -49,10 +60,13 @@ export default function SearchingVisualizer() {
           onChange={(e) =>
             setAlgorithm(e.target.value as SearchingAlgorithm)
           }
-          className="rounded-xl border border-border bg-surface px-4 py-2 outline-none"
+          className="rounded-xl border border-border bg-surface px-4 py-2"
         >
           <option value="linear">Linear Search</option>
-          <option value="binary">Binary Search</option>
+
+          <option value="binary">
+            Binary Search (Coming Soon)
+          </option>
         </select>
       </div>
 
@@ -66,7 +80,7 @@ export default function SearchingVisualizer() {
           onSpeedChange={setSpeed}
           onGenerate={generateNewArray}
           onSearch={handleSearch}
-          onReset={handleReset}
+          onReset={reset}
         />
       </div>
 
@@ -74,26 +88,33 @@ export default function SearchingVisualizer() {
         <ArrayBars array={array} />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-border bg-surface p-6">
-          <h2 className="mb-4 text-xl font-semibold">
-            {info.title}
-          </h2>
+      <div className="rounded-2xl border border-border bg-surface p-6">
+        <h2 className="mb-4 text-xl font-semibold">
+          Live Statistics
+        </h2>
 
-          <div className="space-y-2 text-text-secondary">
-            <p>Best: {info.best}</p>
-            <p>Average: {info.average}</p>
-            <p>Worst: {info.worst}</p>
-          </div>
-        </div>
+        <div className="space-y-2 text-text-secondary">
+          <p>Comparisons: {comparisons}</p>
 
-        <div className="rounded-2xl border border-border bg-surface p-6">
-          <h2 className="mb-4 text-xl font-semibold">
-            Explanation
-          </h2>
+          <p>
+            Status: {
+              isSearching
+                ? "Searching..."
+                : searchResult === "idle"
+                ? "Idle"
+                : "Finished"
+            }
+          </p>
 
-          <p className="leading-7 text-text-secondary">
-            {info.explanation}
+          <p>
+            Result:{" "}
+            {searchResult === "idle" && "—"}
+
+            {searchResult === "found" &&
+              `✅ Found at index ${foundIndex}`}
+
+            {searchResult === "not-found" &&
+              "❌ Target not found"}
           </p>
         </div>
       </div>

@@ -11,8 +11,12 @@ export interface SearchBar {
 
 export interface SearchStep {
   array: SearchBar[];
+
   comparisons: number;
+
   found: boolean;
+
+  foundIndex: number;
 }
 
 export type SearchingAlgorithm =
